@@ -111,14 +111,28 @@ export default function App() {
 
                 <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
                   {authMode === 'signup' && (
-                    <div>
-                      <label className="block text-[10px] font-black uppercase tracking-widest text-white/40 mb-1.5 ml-1">Venue Name</label>
-                      <input type="text" placeholder="The Neon Lounge" className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-3.5 focus:outline-none focus:border-hot transition-colors text-sm" />
-                    </div>
+                    <>
+                      <div>
+                        <label className="block text-[10px] font-black uppercase tracking-widest text-white/40 mb-1.5 ml-1">Venue Name</label>
+                        <input type="text" placeholder="The Neon Lounge" className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-3.5 focus:outline-none focus:border-hot transition-colors text-sm" />
+                      </div>
+                      <div>
+                        <label className="block text-[10px] font-black uppercase tracking-widest text-white/40 mb-1.5 ml-1">URL Slug</label>
+                        <input type="text" placeholder="auto-generated" className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-3.5 focus:outline-none focus:border-hot transition-colors text-sm" />
+                      </div>
+                      <div>
+                        <label className="block text-[10px] font-black uppercase tracking-widest text-white/40 mb-1.5 ml-1">City</label>
+                        <input type="text" placeholder="Kampala" className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-3.5 focus:outline-none focus:border-hot transition-colors text-sm" />
+                      </div>
+                      <div>
+                        <label className="block text-[10px] font-black uppercase tracking-widest text-white/40 mb-1.5 ml-1">Your Name</label>
+                        <input type="text" className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-3.5 focus:outline-none focus:border-hot transition-colors text-sm" />
+                      </div>
+                    </>
                   )}
                   <div>
-                    <label className="block text-[10px] font-black uppercase tracking-widest text-white/40 mb-1.5 ml-1">Email Address</label>
-                    <input type="email" placeholder="admin@venue.com" className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-3.5 focus:outline-none focus:border-hot transition-colors text-sm" />
+                    <label className="block text-[10px] font-black uppercase tracking-widest text-white/40 mb-1.5 ml-1">{authMode === 'signup' ? 'Admin Email' : 'Email Address'}</label>
+                    <input type="email" placeholder={authMode === 'signup' ? 'admin@venue.com' : 'you@email.com'} className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-3.5 focus:outline-none focus:border-hot transition-colors text-sm" />
                   </div>
                   <div>
                     <label className="block text-[10px] font-black uppercase tracking-widest text-white/40 mb-1.5 ml-1">Password</label>
@@ -127,6 +141,11 @@ export default function App() {
                   <button className="btn-primary w-full py-4 mt-2 uppercase tracking-widest text-sm">
                     {authMode === 'login' ? 'Sign In' : 'Create Venue'}
                   </button>
+                  {authMode === 'login' && (
+                    <p className="text-[10px] text-grey mt-3 text-center">
+                      Demo: <strong className="text-white">admin@lounge.com</strong> / password123
+                    </p>
+                  )}
                 </form>
 
                 <div className="mt-6 text-center">
