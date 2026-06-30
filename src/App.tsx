@@ -141,11 +141,6 @@ export default function App() {
                   <button className="btn-primary w-full py-4 mt-2 uppercase tracking-widest text-sm">
                     {authMode === 'login' ? 'Sign In' : 'Create Venue'}
                   </button>
-                  {authMode === 'login' && (
-                    <p className="text-[10px] text-grey mt-3 text-center">
-                      Demo: <strong className="text-white">admin@lounge.com</strong> / password123
-                    </p>
-                  )}
                 </form>
 
                 <div className="mt-6 text-center">
