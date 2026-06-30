@@ -21,7 +21,6 @@ function MusicIcon({ className = "w-4 h-4" }: { className?: string }) {
 export default function App() {
   const [scrolled, setScrolled] = useState(false)
   const [activeTab, setActiveTab] = useState('Singers')
-  const [showAuth, setShowAuth] = useState(false)
   const [authMode, setAuthMode] = useState<'login' | 'signup'>('login')
 
   useEffect(() => {
@@ -30,62 +29,12 @@ export default function App() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  if (showAuth) {
-    return (
-      <div className="min-h-screen bg-black flex flex-col items-center justify-center p-6 text-white" style={{ fontFamily: '"Plus Jakarta Sans", sans-serif' }}>
-        <div className="w-full max-w-md glass p-8 rounded-[32px] smule-shadow">
-          <button onClick={() => setShowAuth(false)} className="text-sm font-bold opacity-60 hover:opacity-100 mb-8 flex items-center gap-2">
-            ← Back to Home
-          </button>
-          
-          <div className="flex items-center gap-2 mb-8">
-            <div className="w-8 h-8 rounded-lg bg-hot flex items-center justify-center rotate-3">
-              <MicIcon className="w-5 h-5 text-white" />
-            </div>
-            <span className="text-2xl font-[900] tracking-tighter">KaraQ<span className="text-hot">Pro</span></span>
-          </div>
-
-          <h2 className="text-3xl font-black mb-2">{authMode === 'login' ? 'Welcome Back' : 'Create Account'}</h2>
-          <p className="text-grey text-sm mb-8">{authMode === 'login' ? 'Enter your venue credentials to continue.' : 'Start your 14-day free trial today.'}</p>
-
-          <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
-            {authMode === 'signup' && (
-              <div>
-                <label className="block text-[10px] font-black uppercase tracking-widest text-white/40 mb-1.5 ml-1">Venue Name</label>
-                <input type="text" placeholder="The Neon Lounge" className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-3.5 focus:outline-none focus:border-hot transition-colors" />
-              </div>
-            )}
-            <div>
-              <label className="block text-[10px] font-black uppercase tracking-widest text-white/40 mb-1.5 ml-1">Email Address</label>
-              <input type="email" placeholder="admin@venue.com" className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-3.5 focus:outline-none focus:border-hot transition-colors" />
-            </div>
-            <div>
-              <label className="block text-[10px] font-black uppercase tracking-widest text-white/40 mb-1.5 ml-1">Password</label>
-              <input type="password" placeholder="••••••••" className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-3.5 focus:outline-none focus:border-hot transition-colors" />
-            </div>
-            <button className="btn-primary w-full py-4 mt-4 uppercase tracking-widest text-sm">
-              {authMode === 'login' ? 'Sign In' : 'Create Venue'}
-            </button>
-          </form>
-
-          <div className="mt-8 text-center">
-            <button 
-              onClick={() => setAuthMode(authMode === 'login' ? 'signup' : 'login')}
-              className="text-sm font-bold text-hot"
-            >
-              {authMode === 'login' ? "Don't have an account? Sign Up" : "Already have an account? Log In"}
-            </button>
-          </div>
-        </div>
-      </div>
-    )
-  }
-
   return (
     <div className="min-h-screen text-white bg-black selection:bg-hot selection:text-white" style={{ fontFamily: '"Plus Jakarta Sans", sans-serif' }}>
       <style>{`
         .smule-shadow { box-shadow: 0 8px 32px rgba(0,0,0,0.5); }
         .glass { background: rgba(22, 22, 24, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.08); }
+        .auth-card { border: 2px solid rgba(255,255,255,0.15); }
         .nav-link { position: relative; font-weight: 700; font-size: 14px; transition: color 0.2s; }
         .nav-link:hover { color: #ff006e; }
         .btn-primary { background: #ff006e; border-radius: 99px; transition: transform 0.2s, background 0.2s; font-weight: 800; }
@@ -110,23 +59,17 @@ export default function App() {
           </div>
           <div className="flex items-center gap-3 sm:gap-4">
             <button 
-              onClick={() => { setAuthMode('login'); setShowAuth(true); }}
-              className="text-xs sm:text-sm font-bold opacity-80 hover:opacity-100 transition-opacity"
+              onClick={() => setAuthMode(authMode === 'login' ? 'signup' : 'login')}
+              className="text-xs sm:text-sm font-bold text-hot hover:opacity-80 transition-opacity"
             >
-              Log In
-            </button>
-            <button 
-              onClick={() => { setAuthMode('signup'); setShowAuth(true); }}
-              className="btn-primary px-4 sm:px-6 py-2 sm:py-2.5 text-[10px] sm:text-sm uppercase tracking-wide"
-            >
-              Get Started
+              {authMode === 'login' ? 'Sign Up' : 'Log In'}
             </button>
           </div>
         </div>
       </nav>
 
       {/* HERO SECTION - Smule Inspired */}
-      <section className="relative h-[60vh] sm:h-[85vh] min-h-[400px] sm:min-h-[600px] flex items-center overflow-hidden">
+      <section className="relative min-h-[90vh] flex items-center overflow-hidden py-20 sm:py-0">
         {/* Background Image with Dark Gradient Overlays */}
         <div className="absolute inset-0 z-0">
           <img 
@@ -139,26 +82,70 @@ export default function App() {
         </div>
 
         <div className="relative z-10 max-w-[1200px] mx-auto px-4 sm:px-6 w-full">
-          <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-2 py-0.5 sm:px-3 sm:py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[8px] sm:text-xs font-bold uppercase tracking-widest mb-3 sm:mb-6">
-              <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-hot animate-pulse" />
-              Live in 140+ Venues
+          <div className="flex flex-col lg:flex-row lg:items-center gap-8 lg:gap-12">
+            {/* Left: Headline */}
+            <div className="flex-1 min-w-0">
+              <div className="inline-flex items-center gap-2 px-2 py-0.5 sm:px-3 sm:py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[8px] sm:text-xs font-bold uppercase tracking-widest mb-3 sm:mb-6">
+                <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-hot animate-pulse" />
+                Live in 140+ Venues
+              </div>
+              <h1 className="text-3xl sm:text-5xl md:text-7xl font-[900] leading-[1.05] tracking-tight mb-3 sm:mb-6">
+                The World is Your <br/>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-hot via-violet to-aqua">Main Stage</span>
+              </h1>
+              <p className="text-base sm:text-xl md:text-2xl text-grey font-medium mb-6 sm:mb-10 max-w-xl">
+                Pro-grade console, mobile singer app, and real-time syncing for venues.
+              </p>
+              <div className="flex flex-row gap-3">
+                <button className="btn-primary px-6 sm:px-10 py-3 sm:py-4 text-xs sm:text-lg">
+                  Launch Console
+                </button>
+                <button className="px-6 sm:px-10 py-3 sm:py-4 rounded-full border-2 border-white/20 text-xs sm:text-lg font-bold hover:bg-white/10 transition-colors">Find a Venue</button>
+              </div>
             </div>
-            <h1 className="text-3xl sm:text-5xl md:text-7xl font-[900] leading-[1.05] tracking-tight mb-3 sm:mb-6">
-              The World is Your <br/>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-hot via-violet to-aqua">Main Stage</span>
-            </h1>
-            <p className="text-base sm:text-xl md:text-2xl text-grey font-medium mb-6 sm:mb-10 max-w-xl">
-              Pro-grade console, mobile singer app, and real-time syncing for venues.
-            </p>
-            <div className="flex flex-row gap-3">
-              <button 
-                onClick={() => { setAuthMode('signup'); setShowAuth(true); }}
-                className="btn-primary px-6 sm:px-10 py-3 sm:py-4 text-xs sm:text-lg"
-              >
-                Launch Console
-              </button>
-              <button className="px-6 sm:px-10 py-3 sm:py-4 rounded-full border-2 border-white/20 text-xs sm:text-lg font-bold hover:bg-white/10 transition-colors">Find a Venue</button>
+
+            {/* Right: Auth Form */}
+            <div className="w-full lg:w-[380px] xl:w-[420px] shrink-0">
+              <div className="glass auth-card p-6 sm:p-8 rounded-[32px] smule-shadow">
+                <div className="flex items-center gap-2 mb-6">
+                  <div className="w-7 h-7 rounded-lg bg-hot flex items-center justify-center rotate-3">
+                    <MicIcon className="w-4 h-4 text-white" />
+                  </div>
+                  <span className="text-xl font-[900] tracking-tighter">KaraQ<span className="text-hot">Pro</span></span>
+                </div>
+
+                <h2 className="text-2xl font-black mb-1">{authMode === 'login' ? 'Welcome Back' : 'Create Account'}</h2>
+                <p className="text-grey text-xs mb-6">{authMode === 'login' ? 'Enter your venue credentials to continue.' : 'Start your 14-day free trial today.'}</p>
+
+                <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+                  {authMode === 'signup' && (
+                    <div>
+                      <label className="block text-[10px] font-black uppercase tracking-widest text-white/40 mb-1.5 ml-1">Venue Name</label>
+                      <input type="text" placeholder="The Neon Lounge" className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-3.5 focus:outline-none focus:border-hot transition-colors text-sm" />
+                    </div>
+                  )}
+                  <div>
+                    <label className="block text-[10px] font-black uppercase tracking-widest text-white/40 mb-1.5 ml-1">Email Address</label>
+                    <input type="email" placeholder="admin@venue.com" className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-3.5 focus:outline-none focus:border-hot transition-colors text-sm" />
+                  </div>
+                  <div>
+                    <label className="block text-[10px] font-black uppercase tracking-widest text-white/40 mb-1.5 ml-1">Password</label>
+                    <input type="password" placeholder="••••••••" className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-3.5 focus:outline-none focus:border-hot transition-colors text-sm" />
+                  </div>
+                  <button className="btn-primary w-full py-4 mt-2 uppercase tracking-widest text-sm">
+                    {authMode === 'login' ? 'Sign In' : 'Create Venue'}
+                  </button>
+                </form>
+
+                <div className="mt-6 text-center">
+                  <button 
+                    onClick={() => setAuthMode(authMode === 'login' ? 'signup' : 'login')}
+                    className="text-sm font-bold text-hot"
+                  >
+                    {authMode === 'login' ? "Don't have an account? Sign Up" : "Already have an account? Log In"}
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
