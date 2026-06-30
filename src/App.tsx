@@ -34,7 +34,7 @@ export default function App() {
       <style>{`
         .smule-shadow { box-shadow: 0 8px 32px rgba(0,0,0,0.5); }
         .glass { background: rgba(22, 22, 24, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.08); }
-        .auth-card { border: 2px solid rgba(255,255,255,0.15); }
+        .auth-card { border: 3px solid rgba(255,255,255,0.15); }
         .nav-link { position: relative; font-weight: 700; font-size: 14px; transition: color 0.2s; }
         .nav-link:hover { color: #ff006e; }
         .btn-primary { background: #ff006e; border-radius: 99px; transition: transform 0.2s, background 0.2s; font-weight: 800; }
@@ -56,14 +56,6 @@ export default function App() {
                 <a key={l} href="#" className="nav-link opacity-80 hover:opacity-100">{l}</a>
               ))}
             </div>
-          </div>
-          <div className="flex items-center gap-3 sm:gap-4">
-            <button 
-              onClick={() => setAuthMode(authMode === 'login' ? 'signup' : 'login')}
-              className="text-xs sm:text-sm font-bold text-hot hover:opacity-80 transition-opacity"
-            >
-              {authMode === 'login' ? 'Sign Up' : 'Log In'}
-            </button>
           </div>
         </div>
       </nav>
